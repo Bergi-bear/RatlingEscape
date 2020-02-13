@@ -68,31 +68,3 @@ function UnitDamageLine(u,damage,x,y,range,distance,angle)
 	end
 	return isdamage
 end
-
-function UnitRocketArea(hero,x,y,range)
-	local find=false
-	local e--временный юнит
-	local targ=nil
-	GroupEnumUnitsInRange(perebor,x,y,range,nil)
-	while true do
-		e = FirstOfGroup(perebor)
-		if e == nil or find==true then break end
-		if UnitAlive(e) and IsUnitEnemy(e,GetOwningPlayer(hero)) then
-			targ=e
-		end
-		GroupRemoveUnit(perebor,e)
-	end
-	local dummy=CreateUnit(GetOwningPlayer(hero), DummyID, GetUnitX(hero), GetUnitY(hero), 0)
-	UnitAddAbility(dummy,FourCC('A003'))
-	UnitApplyTimedLife(dummy,DummyID,1)
-	if targ~=nil then
-		--print("цель определена- "..GetUnitName(targ))
-		Cast(dummy,0,0,targ)
-	else
-		local enemyDummy=CreateUnit(Player(PLAYER_NEUTRAL_AGGRESSIVE), DummyID, x, y, 0)
-		UnitRemoveAbility(enemyDummy,FourCC('Aloc'))
-		Cast(dummy,0,0,enemyDummy)
-		UnitApplyTimedLife(enemyDummy,DummyID,3)
-		--print("Нет врагов, летим в воду")
-	end
-end
