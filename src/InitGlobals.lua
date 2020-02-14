@@ -174,7 +174,7 @@ function InitGameCore()
 			data.ReleaseRMB=true
 			local hero=data.UnitHero
 			data.AttackTime=0.7
-			randomeffect=GetRandomInt(1,14)
+			randomeffect=GetRandomInt(1,15)
 			--data.isattack=true
 			--SetUnitAnimationByIndex(hero,14)
 			--SingleCannon(hero)

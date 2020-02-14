@@ -67,7 +67,8 @@ BulletEffect={
 	"Bullets/Konstrukt_AssaultRifleMissile.mdl",
 	"Bullets/Konstrukt_ShotgunMissile.mdl",
 	"Bullets/Konstrukt_SubmachinegunMissile.mdl",
-	"Bullets/ShotGunBullet.mdl"
+	"Bullets/ShotGunBullet.mdl",
+	"Bullets/RifleMissileByEpsilon.mdl"
 }
 
 randomeffect=0--GetRandomInt(1,14)
