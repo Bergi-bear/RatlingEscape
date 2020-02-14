@@ -32,6 +32,10 @@ end
 function CreateAndForceBullet(hero,angle,speed,effectmodel,xs,ys)
 	local xhero,yhero=GetUnitX(hero),GetUnitY(hero)
 	local zhero=GetTerrainZ(xhero,yhero)+60
+	if true then-- сдвиг только для ратлингов
+		xs=MoveX(xs,20,angle-55)
+		ys=MoveY(ys,20,angle-55)
+	end
 	local bullet=AddSpecialEffect(effectmodel,xs,ys)
 	local bam=nil--AddSpecialEffect("Abilities/Weapons/SteamTank/SteamTankImpact.mdl",xs,ys)
 	local cloud=nil--AddSpecialEffect("Abilities/Weapons/SteamTank/SteamTankImpact.mdl",xs,ys)
@@ -39,6 +43,8 @@ function CreateAndForceBullet(hero,angle,speed,effectmodel,xs,ys)
 	local CollisionEnemy=false
 	local CollisisonDestr=false
 	local ZPerepad=0
+	BlzSetSpecialEffectYaw(bullet,math.rad(angle))
+
 	--print("Скорость корабля"..data.CurrentSpeed)
 	BlzSetSpecialEffectScale(bam,0.1)
 	BlzSetSpecialEffectScale(cloud,0.02)
@@ -73,12 +79,30 @@ function CreateAndForceBullet(hero,angle,speed,effectmodel,xs,ys)
 		end
 	end)
 end
+BulletEffect={
+	"Abilities/Weapons/BoatMissile/BoatMissile.mdl",
+	"Bullets/Bullet.mdl",
+	"Bullets/Bullet1.mdl",
+	"Bullets/HighSpeedProjectile_ByEpsilon.mdl",
+	"Bullets/Incendiary Bullet Blue.mdl",
+	"Bullets/Incendiary Bullet Orange.mdl",
+	"Bullets/Incendiary Bullet Purple.mdl",
+	"Bullets/Incendiary Bullet Green.mdl",
+	"Bullets/Incendiary Bullet Red.mdl",--9
+	"Bullets/Incendiary Bullet Yellow.mdl",
+	"Bullets/Konstrukt_AssaultRifleMissile.mdl",
+	"Bullets/Konstrukt_ShotgunMissile.mdl",
+	"Bullets/Konstrukt_SubmachinegunMissile.mdl",
+	"Bullets/ShotGunBullet.mdl"
+}
 
+randomeffect=0--GetRandomInt(1,14)
 function SingleCannon(hero)
 	local angle=GetUnitFacing(hero)
 	local x=MoveX(GetUnitX(hero),110,angle)
 	local y=MoveY(GetUnitY(hero),110,angle)
-	CreateAndForceBullet(hero,angle,30,"Abilities/Weapons/BoatMissile/BoatMissile.mdl",x,y)
+	local data=
+	CreateAndForceBullet(hero,angle,50,BulletEffect[randomeffect],x,y)
 end
 
 ---
@@ -411,6 +435,7 @@ function InitGameCore()
 			data.ReleaseRMB=true
 			local hero=data.UnitHero
 			data.AttackTime=0.7
+			randomeffect=GetRandomInt(1,14)
 			--data.isattack=true
 			--SetUnitAnimationByIndex(hero,14)
 			--SingleCannon(hero)
@@ -468,6 +493,7 @@ function InitGameCore()
 			local standanim=false
 			local walkattack=false
 			local turn=AngleBetweenXY(x,y,GetPlayerMouseX[id],GetPlayerMouseY[id])/bj_DEGTORAD
+			local aSpeed=0.1
 
 
 			--Синхронизация ног
@@ -497,7 +523,7 @@ function InitGameCore()
 
 
 			data.AttackTime=data.AttackTime+TIMER_PERIOD
-			if data.AttackTime>=0.3 then
+			if data.AttackTime>=aSpeed then
 				data.AttackTime=0
 				if data.ReleaseRMB then
 					data.isattack=true

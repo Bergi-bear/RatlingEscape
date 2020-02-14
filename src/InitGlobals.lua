@@ -174,6 +174,7 @@ function InitGameCore()
 			data.ReleaseRMB=true
 			local hero=data.UnitHero
 			data.AttackTime=0.7
+			randomeffect=GetRandomInt(1,14)
 			--data.isattack=true
 			--SetUnitAnimationByIndex(hero,14)
 			--SingleCannon(hero)
@@ -231,6 +232,7 @@ function InitGameCore()
 			local standanim=false
 			local walkattack=false
 			local turn=AngleBetweenXY(x,y,GetPlayerMouseX[id],GetPlayerMouseY[id])/bj_DEGTORAD
+			local aSpeed=0.1
 
 
 			--Синхронизация ног
@@ -260,7 +262,7 @@ function InitGameCore()
 
 
 			data.AttackTime=data.AttackTime+TIMER_PERIOD
-			if data.AttackTime>=0.3 then
+			if data.AttackTime>=aSpeed then
 				data.AttackTime=0
 				if data.ReleaseRMB then
 					data.isattack=true
