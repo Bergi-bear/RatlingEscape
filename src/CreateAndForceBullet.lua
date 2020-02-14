@@ -47,6 +47,14 @@ function CreateAndForceBullet(hero,angle,speed,effectmodel,xs,ys)
 		end
 	end)
 end
+BulletEffect={
+	eff1="Abilities/Weapons/BoatMissile/BoatMissile.mdl",
+	eff2="Bullets/Bullet.mdl",
+	eff3="Bullets/Bullet1.mdl",
+	eff4="Bullets/Bullet.mdl",
+
+
+}
 
 function SingleCannon(hero)
 	local angle=GetUnitFacing(hero)
